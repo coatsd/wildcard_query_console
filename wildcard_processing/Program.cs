@@ -39,6 +39,7 @@ namespace wildcard_processing
             int wildcard_count = CountWildcards(string_in);
             string[] substrings = new string[wildcard_count + 1];
 
+            // If there are wildcards, run the rest of the logic
             if (wildcard_count > 0)
             {
                 int last_pos = 0;
@@ -53,8 +54,9 @@ namespace wildcard_processing
                             last_pos == string_in.Length - 1)
                         {
                             substrings[i] =
-                                    string_in.Substring(beginning_pos, last_pos - (beginning_pos - 1))
-                                        .Trim('*');
+                                string_in.Substring(beginning_pos, last_pos - (beginning_pos - 1))
+                                    .Trim('*');
+
                             beginning_pos = last_pos;
 
                             Console.WriteLine("Placing item into substring list: "
@@ -72,6 +74,9 @@ namespace wildcard_processing
             return substrings;
         }
 
+        // Test the substrings against the dummy data. If any passed in
+        // substrings fail to match in a piece of data, don't include in the
+        // returned list of results.
         static List<string> SearchData(string[] substrings)
         {
             List<string> found_data = new List<string>();
@@ -138,6 +143,12 @@ namespace wildcard_processing
 
         static void Main(string[] args)
         {
+            Console.WriteLine("Dummy Data:");
+            for (int i = 0; i < DataArray.Length; i++)
+            {
+                Console.WriteLine(DataArray[i]);
+            }
+            Console.WriteLine();
             Console.WriteLine("Welcome to the Wildcard Processing app!");
             Console.WriteLine("Please enter a term to be queried:");
 
